@@ -1,0 +1,390 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode in Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #43385c;
+  background: linear-gradient(160deg, #fdf2ff 0%, #f3f0ff 28%, #eef4ff 58%, #fff6ec 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 600ms ease, color 400ms ease;
+  font-weight: 700; /* Strong bold in light theme */
+}
+
+.dark body {
+  color: #e2dcf5;
+  background: linear-gradient(160deg, #16101f 0%, #1a1530 28%, #131630 58%, #1d1424 100%);
+  font-weight: 500;
+}
+
+/* Make most readable text bold in light mode */
+body:not(.dark) p,
+body:not(.dark) span,
+body:not(.dark) li,
+body:not(.dark) label,
+body:not(.dark) h1,
+body:not(.dark) h2,
+body:not(.dark) h3,
+body:not(.dark) h4,
+body:not(.dark) button {
+  font-weight: 700;
+}
+
+::selection {
+  background: #f5d0fe;
+  color: #6b21a8;
+}
+.dark ::selection {
+  background: #6b21a8;
+  color: #fdf4ff;
+}
+
+/* Custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d8b4fe transparent;
+}
+.dark * {
+  scrollbar-color: #7c3aed transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #d8b4fe;
+  border-radius: 9999px;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ─── Dark-mode adjustments for shared modal/card patterns ─── */
+/* Translucent white surfaces become deep violet surfaces in dark mode */
+.dark .bg-white\/85,
+.dark .bg-white\/80,
+.dark .bg-white\/70,
+.dark .bg-white\/60,
+.dark .bg-white\/55,
+.dark .bg-white\/50,
+.dark .bg-white\/45,
+.dark .bg-white\/30,
+.dark .bg-white\/25 {
+  background-color: rgba(35, 22, 58, 0.7) !important;
+}
+.dark .bg-white {
+  background-color: rgb(40, 26, 65) !important;
+}
+
+/* Light borders become subtle violet borders */
+.dark .border-white\/80,
+.dark .border-white\/70,
+.dark .border-white\/60 {
+  border-color: rgba(167, 139, 250, 0.18) !important;
+}
+
+/* Backdrop overlays a bit deeper */
+.dark .bg-violet-950\/30 {
+  background-color: rgba(15, 8, 28, 0.6) !important;
+}
+.dark .bg-violet-950\/40 {
+  background-color: rgba(15, 8, 28, 0.7) !important;
+}
+
+/* Default violet text colors → softer light violets */
+.dark .text-violet-950,
+.dark .text-violet-950\/90,
+.dark .text-violet-950\/85,
+.dark .text-violet-950\/80 {
+  color: rgb(237, 233, 254) !important;
+}
+.dark .text-violet-900,
+.dark .text-violet-900\/80,
+.dark .text-violet-900\/75,
+.dark .text-violet-900\/70 {
+  color: rgb(221, 214, 254) !important;
+}
+.dark .text-violet-700\/80,
+.dark .text-violet-700\/70,
+.dark .text-violet-700 {
+  color: rgb(196, 181, 253) !important;
+}
+.dark .text-violet-600\/80,
+.dark .text-violet-600,
+.dark .text-violet-500\/80,
+.dark .text-violet-500\/70,
+.dark .text-violet-500 {
+  color: rgb(196, 181, 253) !important;
+}
+.dark .text-violet-400\/70,
+.dark .text-violet-400\/60,
+.dark .text-violet-400 {
+  color: rgb(167, 139, 250) !important;
+}
+
+/* Light pill backgrounds */
+.dark .bg-violet-50,
+.dark .bg-violet-50\/50,
+.dark .bg-violet-50\/80,
+.dark .bg-violet-100,
+.dark .bg-violet-100\/50,
+.dark .bg-violet-100\/70,
+.dark .bg-violet-100\/80 {
+  background-color: rgba(124, 58, 237, 0.22) !important;
+}
+
+/* Hover states on light surfaces */
+.dark .hover\:bg-white:hover,
+.dark .hover\:bg-white\/80:hover {
+  background-color: rgba(50, 33, 80, 0.85) !important;
+}
+.dark .hover\:bg-violet-100:hover,
+.dark .hover\:bg-violet-50:hover {
+  background-color: rgba(124, 58, 237, 0.3) !important;
+}
+
+/* Amber notes — soften for dark mode but keep warm hue */
+.dark .bg-amber-50\/70,
+.dark .bg-amber-50\/95,
+.dark .bg-amber-100 {
+  background-color: rgba(120, 53, 15, 0.35) !important;
+}
+.dark .border-amber-200\/70,
+.dark .border-amber-300,
+.dark .border-amber-400\/70 {
+  border-color: rgba(252, 211, 77, 0.35) !important;
+}
+.dark .text-amber-800,
+.dark .text-amber-800\/90,
+.dark .text-amber-700,
+.dark .text-amber-700\/70,
+.dark .text-amber-700\/60 {
+  color: rgb(253, 224, 71) !important;
+}
+
+/* Emerald accents */
+.dark .bg-emerald-100,
+.dark .bg-emerald-100\/70 {
+  background-color: rgba(5, 150, 105, 0.25) !important;
+}
+.dark .text-emerald-700 {
+  color: rgb(110, 231, 183) !important;
+}
+
+/* Rose accents */
+.dark .bg-rose-50,
+.dark .bg-rose-100,
+.dark .bg-rose-100\/70 {
+  background-color: rgba(244, 63, 94, 0.18) !important;
+}
+.dark .text-rose-500,
+.dark .text-rose-600,
+.dark .text-rose-500\/80,
+.dark .text-rose-600\/80 {
+  color: rgb(252, 165, 165) !important;
+}
+
+/* Dashed empty-state borders */
+.dark .border-violet-300\/50,
+.dark .border-violet-300\/60,
+.dark .border-violet-300 {
+  border-color: rgba(167, 139, 250, 0.3) !important;
+}
+
+/* Slate backgrounds (e.g. disabled buttons) */
+.dark .bg-slate-300,
+.dark .bg-slate-300\/70 {
+  background-color: rgba(71, 85, 105, 0.6) !important;
+}
+.dark .text-slate-500,
+.dark .text-slate-500\/70,
+.dark .text-slate-500\/80 {
+  color: rgb(148, 163, 184) !important;
+}
+
+/* Soft amber gradient surface for celebration */
+.dark .from-amber-50\/70 {
+  --tw-gradient-from: rgba(120, 53, 15, 0.35) !important;
+}
+.dark .via-rose-50\/60 {
+  --tw-gradient-via: rgba(190, 18, 60, 0.2) !important;
+}
+.dark .from-amber-50 {
+  --tw-gradient-from: rgba(120, 53, 15, 0.4) !important;
+}
+
+/* Subtle text on dark borders */
+.dark .border-violet-200,
+.dark .border-violet-200\/60 {
+  border-color: rgba(167, 139, 250, 0.25) !important;
+}
+
+/* Inputs */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.dark textarea {
+  color-scheme: dark;
+}
+
+/* Font helpers */
+.font-display {
+  font-family: var(--font-display);
+}
+.font-hand {
+  font-family: var(--font-hand);
+}
+
+/* ---------- Animations ---------- */
+@keyframes floatBlob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(38px, -34px) scale(1.08);
+  }
+  66% {
+    transform: translate(-28px, 22px) scale(0.95);
+  }
+}
+.animate-blob {
+  animation: floatBlob 20s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.animate-bob {
+  animation: bob 4.5s ease-in-out infinite;
+}
+
+@keyframes dropNote {
+  0% {
+    transform: translate(-50%, -190px) rotate(-8deg);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  66% {
+    transform: translate(-50%, 54px) rotate(28deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 54px) rotate(28deg);
+    opacity: 0;
+  }
+}
+.drop-note {
+  animation: dropNote 0.78s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+@keyframes jarShake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  12% {
+    transform: rotate(-7deg) translateY(-3px);
+  }
+  24% {
+    transform: rotate(6deg) translateY(0);
+  }
+  36% {
+    transform: rotate(-5deg) translateY(-2px);
+  }
+  48% {
+    transform: rotate(5deg);
+  }
+  60% {
+    transform: rotate(-3deg);
+  }
+  72% {
+    transform: rotate(2deg);
+  }
+}
+.jar-shake {
+  animation: jarShake 0.72s ease-in-out;
+  transform-origin: 50% 100%;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.86) translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.animate-pop {
+  animation: popIn 0.42s cubic-bezier(0.2, 0.8, 0.2, 1.18) both;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+.animate-sparkle {
+  animation: sparkle 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-bob,
+  .drop-note,
+  .jar-shake,
+  .animate-pop,
+  .animate-fade-up,
+  .animate-sparkle {
+    animation: none !important;
+  }
+}
